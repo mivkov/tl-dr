@@ -54,7 +54,7 @@ def preprocess_colons(text):
 
     for i in range(1, len(fin_split)):
         prev_sentence = fin_split[i-1][-1].pop() + " "
-        if len(fin_split[i] == 1):
+        if len(fin_split[i]) == 1:
             end = len(fin_split[i][0]) - 1
         else:
             end = len(fin_split[i][0])
