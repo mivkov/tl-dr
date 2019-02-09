@@ -57,9 +57,9 @@ def parse(f1):
                         maxima[key] = max(uncanny[key],maxima[key])
 
     fin = []
-    for r in maxima:
-        if abs(r[1]-1) > 10.0**(-6):
-            fin.append(r)
+    for key in maxima:
+        if abs(maxima[key]-1) > 10.0**(-6):
+            fin.append((key, maxima[key]))
     fin.sort(key = sort_pattern)
     if len(fin) == 0:
         return "Nothing out of the normal here!"
