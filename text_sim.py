@@ -47,10 +47,10 @@ def parse(f1):
 
     maxima = {t:0.0 for t in text1}
     path = os.getcwd()
-    for _, _, files in os.walk(path + '/licenses'):
+    for root, _, files in os.walk(path + '/licenses'):
         for file in files:
             if file.endswith(".txt") and file != 'apple_fixed.txt':
-                with open(file, 'r') as f:
+                with open(os.path.join(root,file), 'r') as f:
                     text2 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f.read())))
                     uncanny = find_uncanny(text1, text2)
                     for key in uncanny:
