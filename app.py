@@ -35,9 +35,9 @@ def root():
 # API route
 @app.route('/api', methods = ['POST'])
 def api():
-    print("request.data: {}".format(request.data))
+    print("request.data: {}".format(request))
     info = jsonify(data=request.data)
-    resp = Response(js, status=200, mimetype='application/json')
+    resp = Response(info, status=200, mimetype='application/json')
 
     return resp
 
