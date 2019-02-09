@@ -75,7 +75,7 @@ def parse(f1):
             fin.append((key, maxima[key]))
     fin.sort(key = sort_pattern)
     if len(fin) == 0:
-        return "Nothing out of the normal here!"
+        return "Pretty standard legalese here!"
     else:
         return '\n'.join([dct[f[0]] for f in fin][:min(5, len(fin))])
 
