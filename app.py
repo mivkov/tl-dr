@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify, json, Response, render_template
 from flask_cors import CORS
-from flask_session import MongoDBSessionInterface
-from pymongo import MongoClient
 from text_sim import parse
 
 
@@ -9,16 +7,6 @@ app = Flask(__name__)
 app.secret_key = "SECRET KEY"
 app.config.from_object(__name__)
 CORS(app)
-
-'''
-client = MongoClient()
-db = client.database
-app.session_interface = MongoDBSessionInterface(client=client,
-                                                db="flask_sessions",
-                                                collection="sessions",
-                                                key_prefix=app.secret_key,
-                                                use_signer=True)
-'''
 
 # HTTP Errors handlers
 @app.errorhandler(404)
