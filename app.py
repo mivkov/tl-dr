@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify, json, Response, render_template
 from flask_cors import CORS
 from flask_session import MongoDBSessionInterface
 from pymongo import MongoClient
-#from text_sim import parse
+from text_sim import parse
 
 
 app = Flask(__name__)
