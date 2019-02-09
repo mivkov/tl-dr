@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, json, Response
 from flask_cors import CORS
 from flask_session import MongoDBSessionInterface
 from pymongo import MongoClient
+from text_sim import parse
 
 
 app = Flask(__name__)
@@ -32,6 +33,12 @@ def server_error(e):
 def root():
     return 'Hello!'
 
+@app.route('/apple', methods = ['GET'])
+def apple():
+    with open('apple_fixed.txt', 'r') as f:
+        fl = f.read()
+    return fl
+
 # API route
 @app.route('/api', methods = ['POST'])
 def api():
@@ -39,7 +46,12 @@ def api():
     val1 = info.get("text")
     print("data: {}".format(val1))
 
-    return jsonify(data=val1)
+    with open('apple.txt','r') as f:
+        result = parse(val1, f.read())
+    
+    print("sending off: {}".format(result))
+
+    return jsonify(data=result)
 
 if __name__ == '__main__':
     app.run()
