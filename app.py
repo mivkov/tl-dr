@@ -35,8 +35,8 @@ def root():
 # API route
 @app.route('/api', methods = ['POST'])
 def api():
-    info = request.get_data()
-    print("request.json: {}".format(info))
+    info = request.get_json()
+    print("received information: {}".format(info))
 
     return jsonify(data=info)
 

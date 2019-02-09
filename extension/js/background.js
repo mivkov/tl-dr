@@ -6,13 +6,13 @@ sendData = function(str) {
     $.ajax({
         type: 'POST',
         url: url,
+        contentType: "application/json; charset=utf-8",
         data: {"text": query},
-        success: success,
-        async: false
+        success: success
       });
 }
 
-success = function() {
+success = function(str) {
     alert("Success!")
 }
 
