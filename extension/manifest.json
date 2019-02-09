@@ -8,6 +8,7 @@
     },
     "permissions": [
         "contextMenus",
-        "tabs"
+        "tabs",
+        "tlng-dr.herokuapp.com/*"
     ]
 }
