@@ -1,5 +1,5 @@
 {
-    "name": "Text simplifier",
+    "name": "Legalies",
     "version": "1",
     "manifest_version": 2,
     "background": {
@@ -12,12 +12,14 @@
             "http://*/*",
             "https://*/*"
             ],
-        "js": ["js/content.js"]
+        "js": ["js/content.js"],
+        "css": ["css/popup.css"]
         }
     ],
     "permissions": [
         "contextMenus",
         "tabs",
-        "https://tlng-dr.herokuapp.com/*"
+        "http://*/*",
+        "https://*/*"
     ]
 }

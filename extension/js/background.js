@@ -15,7 +15,11 @@ sendData = function(str) {
 }
 
 success = function(res) {
-    alert("Response from server: " + res.data)
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {requested: "createDiv", data: res.data}, function(response) {
+            console.log(response);
+        });
+    });
 }
 
 chrome.contextMenus.create({
