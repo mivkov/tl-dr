@@ -118,3 +118,6 @@ dmypy.json
 # MacOS DS_Store
 .DS_Store
 **/.DS_Store
+
+# Chrome extension packing
+extension.*
