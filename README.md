@@ -4,6 +4,10 @@ We've all seen it: huge blocks of dense text that pop up before you install a ne
 
 **tl;dr:** what haven't you been reading in the Terms of Services you agree to?
 
+### Installing the Chrome extension:
+
+Visit chrome://extensions/, click the "Load Unpacked" button, and select the ```extensions``` folder when prompted.
+
 ### To use the Chrome extension:
 
 Highlight your target text, right-click and select "Simplify" in the context menu. The summary should appear in the bottom-right corner of your screen.
