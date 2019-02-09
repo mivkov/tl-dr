@@ -9,6 +9,7 @@ app.secret_key = "SECRET KEY"
 app.config.from_object(__name__)
 CORS(app)
 
+'''
 client = MongoClient()
 db = client.database
 app.session_interface = MongoDBSessionInterface(client=client,
@@ -16,6 +17,7 @@ app.session_interface = MongoDBSessionInterface(client=client,
                                                 collection="sessions",
                                                 key_prefix=app.secret_key,
                                                 use_signer=True)
+'''
 
 # HTTP Errors handlers
 @app.errorhandler(404)
