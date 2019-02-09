@@ -9,6 +9,6 @@
     "permissions": [
         "contextMenus",
         "tabs",
-        "tlng-dr.herokuapp.com/*"
+        "https://tlng-dr.herokuapp.com/*"
     ]
 }

@@ -1,6 +1,7 @@
 sendData = function(str) {
     var query = str.selectionText
-    $.post("tlng-dr.herokuapp.com/api", {text: query}, function(data) {
+    alert(`Query: ${query}`)
+    $.post("https://tlng-dr.herokuapp.com/api", {data: query}, function(data) {
         alert(`Received response: ${data.response}`);
     });
 }
