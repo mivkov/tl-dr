@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 stemmer = nltk.stem.porter.PorterStemmer()
 remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
+stopwords = nltk.corpus.stopwords.words('english')
 
 def stem_tokens(tokens):
     return [stemmer.stem(item) for item in tokens]
@@ -13,7 +14,7 @@ def stem_tokens(tokens):
 def normalize(text):
     return stem_tokens(nltk.word_tokenize(text.lower().translate(remove_punctuation_map)))
 
-vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words=stopwords)
 
 def cosine_sim(text1, text2):
     lent1 = len(text1) 
@@ -28,10 +29,10 @@ def sort_pattern(x):
 
 def find_uncanny(text1, text2):
     for k in text1:
-        if len(k) < 5:
+        if len(k) < 10:
             text1.remove(k)
     for k in text2:
-        if len(k) < 5:
+        if len(k) < 10:
             text2.remove(k)
     res = cosine_sim(text1, text2)
     dc = {}
@@ -39,13 +40,20 @@ def find_uncanny(text1, text2):
         dc[r1] = r2
     return dc
 
-def parse(f1):
-    f1 = re.sub(r"http\S+", "", f1)
-    f1 = re.sub(r"HTTP\S+", "", f1)
-    f1 = re.sub(r"[0-9]+", "", f1)
-    text1 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f1)))
+def clean_sentence(s):
+    s = s.replace("\n","")
+    s = re.sub(r"[0-9]+", "", s)
+    s = re.sub(r" +", " ", s) 
+    return s
 
-    maxima = {t:0.0 for t in text1}
+def parse(f1):
+    text1 = list(map(lambda s: clean_sentence(s), nltk.sent_tokenize(f1)))
+    reg = re.compile(r"http\S+|HTTP\S+")
+    for st in text1:
+        if reg.search(st):
+            text1.remove(st)
+
+    maxima = {}
     path = os.getcwd()
     for root, _, files in os.walk(path + '/licenses'):
         for file in files:
@@ -54,7 +62,10 @@ def parse(f1):
                     text2 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f.read())))
                     uncanny = find_uncanny(text1, text2)
                     for key in uncanny:
-                        maxima[key] = max(uncanny[key],maxima[key])
+                        if key in maxima:
+                            maxima[key] = max(uncanny[key],maxima[key])
+                        else:
+                            maxima[key] = uncanny[key]
 
     fin = []
     for key in maxima:
