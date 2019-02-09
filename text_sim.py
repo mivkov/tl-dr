@@ -64,6 +64,6 @@ def parse(f1):
     if len(fin) == 0:
         return "Nothing out of the normal here!"
     else:
-        return '\n'.join(fin[:min(5, len(fin))])
+        return '\n'.join([f[0] for f in fin][:min(5, len(fin))])
 
     
