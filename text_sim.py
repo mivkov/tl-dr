@@ -40,14 +40,16 @@ def find_uncanny(text1, text2):
         dc[r1] = r2
     return dc
 
-def clean_sentence(s):
-    s = s.replace("\n","")
-    s = re.sub(r"[0-9]+", "", s)
-    s = re.sub(r" +", " ", s) 
-    return s
+def clean_sentence(dct, s):
+    fs = s.replace("\n","")
+    fs = re.sub(r"[0-9]+", "", fs)
+    fs = re.sub(r" +", " ", fs) 
+    dct[fs] = s
+    return fs
 
 def parse(f1):
-    text1 = list(map(lambda s: clean_sentence(s), nltk.sent_tokenize(f1)))
+    dct = {}
+    text1 = list(map(lambda s: clean_sentence(dct, s), nltk.sent_tokenize(f1)))
     reg = re.compile(r"http\S+|HTTP\S+")
     for st in text1:
         if reg.search(st):
@@ -75,6 +77,6 @@ def parse(f1):
     if len(fin) == 0:
         return "Nothing out of the normal here!"
     else:
-        return '\n'.join([f[0] for f in fin][:min(5, len(fin))])
+        return '\n'.join([dct[f[0]] for f in fin][:min(5, len(fin))])
 
     
