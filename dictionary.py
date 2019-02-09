@@ -6,7 +6,7 @@ def print_dict():
             tup = line.split(' ')
             word = tup[0]
             occ = tup[1]
-            dictionary[word] = occ
+            dictionary[word] = int(occ)
     return dictionary
 
 
