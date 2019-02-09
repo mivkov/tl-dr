@@ -33,6 +33,12 @@ def server_error(e):
 def root():
     return 'Hello!'
 
+@app.route('/apple', methods = ['GET'])
+def apple():
+    with open('apple_fixed.txt', 'r') as f:
+        fl = f.read()
+    return fl
+
 # API route
 @app.route('/api', methods = ['POST'])
 def api():
@@ -42,6 +48,8 @@ def api():
 
     with open('apple.txt','r') as f:
         result = parse(val1, f.read())
+    
+    print("sending off: {}".format(result))
 
     return jsonify(data=result)
 

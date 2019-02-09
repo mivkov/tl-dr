@@ -1,5 +1,6 @@
 import nltk, string
 import numpy as np
+import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 # nltk.download('punkt') # if necessary...
@@ -45,14 +46,12 @@ def find_uncanny(f1, f2):
     return [r[0] for r in rest][:min(5, len(rest))]
 
 def parse(f1, f2):
+    f1 = re.sub(r"http\S+", "", f1)
+    f2 = re.sub(r"http\S+", "", f2)
     uncanny = find_uncanny(f1, f2)
     if len(uncanny) == 0:
         return "Nothing out of the normal here!"
     else:
         return '\n'.join(uncanny)
-
-with open('apple_fixed.txt','r') as f1:
-    with open('apple.txt','r') as f2:
-        print(parse(f1.read(), f2.read()))
 
     
