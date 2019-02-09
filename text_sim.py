@@ -48,13 +48,17 @@ def clean_sentence(dct, s):
     return fs
 
 def preprocess_colons(text):
-    split_col = list(filter(None,re.split(r" *: *", text)))
-    split_col_num = [list(filter(None, re.split(r" *[0-9]+\.* *", t))) for t in split_col]
+    split_col = list(filter(None,re.split(r"[^(HTTP)(http)(HTTPS)(https)] *: *", text)))
+    split_col_num = [list(filter(None, re.split(r"[,;] *[0-9]+\.* *", t))) for t in split_col]
     fin_split = [[nltk.sent_tokenize(t) for t in ts] for ts in split_col_num]
 
     for i in range(1, len(fin_split)):
         prev_sentence = fin_split[i-1][-1].pop() + " "
-        for j in range(len(fin_split[i][0])):
+        if len(fin_split[i] == 1):
+            end = len(fin_split[i][0]) - 1
+        else:
+            end = len(fin_split[i][0])
+        for j in range(end):
             fin_split[i][0][j] = prev_sentence + fin_split[i][0][j]
         
     ret = []
