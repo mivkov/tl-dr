@@ -1,0 +1,13 @@
+{
+    "name": "Text simplifier",
+    "version": "1",
+    "manifest_version": 2,
+    "background": {
+        "scripts": ["thirdParty/jquery-3.3.1.min.js",
+                    "js/background.js"]
+    },
+    "permissions": [
+        "contextMenus",
+        "tabs"
+    ]
+}
