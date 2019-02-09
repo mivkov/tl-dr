@@ -35,10 +35,10 @@ def root():
 # API route
 @app.route('/api', methods = ['POST'])
 def api():
-    info = request.get_json()
+    info = request.get_data()
     print("request.json: {}".format(info))
 
-    return jsonify(info)
+    return jsonify(data=info)
 
 if __name__ == '__main__':
     app.run()
