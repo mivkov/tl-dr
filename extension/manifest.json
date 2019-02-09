@@ -6,6 +6,15 @@
         "scripts": ["thirdParty/jquery-3.3.1.min.js",
                     "js/background.js"]
     },
+    "content_scripts": [
+        {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+            ],
+        "js": ["js/content.js"]
+        }
+    ],
     "permissions": [
         "contextMenus",
         "tabs",
