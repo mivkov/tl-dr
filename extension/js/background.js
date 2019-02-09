@@ -7,6 +7,7 @@ sendData = function(str) {
         type: 'POST',
         url: url,
         contentType: "application/json; charset=utf-8",
+        dataType: "json",
         data: {"text": query},
         success: success
       });
