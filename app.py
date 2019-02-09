@@ -35,7 +35,7 @@ def root():
 
 @app.route('/apple', methods = ['GET'])
 def apple():
-    with open('apple_fixed.txt', 'r') as f:
+    with open('licenses/apple_fixed.txt', 'r') as f:
         fl = f.read()
     return fl
 
@@ -46,8 +46,7 @@ def api():
     val1 = info.get("text")
     print("data: {}".format(val1))
 
-    with open('apple.txt','r') as f:
-        result = parse(val1, f.read())
+    result = parse(val1)
     
     print("sending off: {}".format(result))
 

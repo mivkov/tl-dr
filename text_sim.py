@@ -1,9 +1,7 @@
 import nltk, string
 import numpy as np
-import re
+import re, os
 from sklearn.feature_extraction.text import TfidfVectorizer
-
-# nltk.download('punkt') # if necessary...
 
 stemmer = nltk.stem.porter.PorterStemmer()
 remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
@@ -28,9 +26,7 @@ def cosine_sim(text1, text2):
 def sort_pattern(x):
     return x[1]
 
-def find_uncanny(f1, f2):
-    text1 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f1)))
-    text2 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f2)))
+def find_uncanny(text1, text2):
     for k in text1:
         if len(k) < 5:
             text1.remove(k)
@@ -38,20 +34,36 @@ def find_uncanny(f1, f2):
         if len(k) < 5:
             text2.remove(k)
     res = cosine_sim(text1, text2)
-    rest = []
-    for r in res:
-        if abs(r[1]-1) > 10.0**(-6):
-            rest.append(r)
-    rest.sort(key = sort_pattern)
-    return [r[0] for r in rest][:min(5, len(rest))]
+    dc = {}
+    for (r1, r2) in res:
+        dc[r1] = r2
+    return dc
 
-def parse(f1, f2):
+def parse(f1):
     f1 = re.sub(r"http\S+", "", f1)
-    f2 = re.sub(r"http\S+", "", f2)
-    uncanny = find_uncanny(f1, f2)
-    if len(uncanny) == 0:
+    f1 = re.sub(r"HTTP\S+", "", f1)
+    f1 = re.sub(r"[0-9]+", "", f1)
+    text1 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f1)))
+
+    maxima = {t:0.0 for t in text1}
+    path = os.getcwd()
+    for _, _, files in os.walk(path + '/licenses'):
+        for file in files:
+            if file.endswith(".txt") and file != 'apple_fixed.txt':
+                with open(file, 'r') as f:
+                    text2 = list(map(lambda s: s.replace("\n",""), nltk.sent_tokenize(f.read())))
+                    uncanny = find_uncanny(text1, text2)
+                    for key in uncanny:
+                        maxima[key] = max(uncanny[key],maxima[key])
+
+    fin = []
+    for r in maxima:
+        if abs(r[1]-1) > 10.0**(-6):
+            fin.append(r)
+    fin.sort(key = sort_pattern)
+    if len(fin) == 0:
         return "Nothing out of the normal here!"
     else:
-        return '\n'.join(uncanny)
+        return '\n'.join(fin[:min(5, len(fin))])
 
     
