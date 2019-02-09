@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, json, Response
+from flask import Flask, request, jsonify, json, Response, render_template
 from flask_cors import CORS
 from flask_session import MongoDBSessionInterface
 from pymongo import MongoClient
-from text_sim import parse
+#from text_sim import parse
 
 
 app = Flask(__name__)
@@ -28,10 +28,10 @@ def url_error(e):
 def server_error(e):
     return "500 Error: Internal Server Error"
 
-#
+
 @app.route('/', methods = ['GET'])
 def root():
-    return 'Hello!'
+    return render_template('base.html')
 
 @app.route('/apple', methods = ['GET'])
 def apple():
@@ -44,13 +44,9 @@ def apple():
 def api():
     info = request.get_json()
     val1 = info.get("text")
-    # print("data: {}".format(val1))
-
+    print("data: {}".format(val1))
     result = parse(val1)
-    
-    print("SENDING OFF DATA")
-    print(result)
-
+    print("sending off: {}".format(result))
     return jsonify(data=result)
 
 if __name__ == '__main__':
