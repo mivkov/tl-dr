@@ -56,3 +56,7 @@
     padding:2px 5px;
     background:#ccc;
 }
+
+#close:hover {
+    cursor: pointer;
+}
