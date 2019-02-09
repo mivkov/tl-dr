@@ -4,17 +4,18 @@ sendData = function(str) {
 
     url = "https://tlng-dr.herokuapp.com/api"
     $.ajax({
-        type: 'POST',
         url: url,
-        contentType: "application/json; charset=utf-8",
+        method: 'POST',
         dataType: "json",
-        data: {"text": query},
+        processData: false,
+        contentType: "application/json; charset=utf-8",
+        data: js,
         success: success
       });
 }
 
-success = function(str) {
-    alert("Success!")
+success = function(res) {
+    alert("Response from server: " + res.data)
 }
 
 chrome.contextMenus.create({
