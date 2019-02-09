@@ -47,9 +47,28 @@ def clean_sentence(dct, s):
     dct[fs] = s
     return fs
 
+def preprocess_colons(text):
+    split_col = list(filter(None,re.split(r" *: *", text)))
+    split_col_num = [list(filter(None, re.split(r" *[0-9]+\.* *", t))) for t in split_col]
+    fin_split = [[nltk.sent_tokenize(t) for t in ts] for ts in split_col_num]
+
+    for i in range(1, len(fin_split)):
+        prev_sentence = fin_split[i-1][-1].pop() + " "
+        for j in range(len(fin_split[i][0])):
+            fin_split[i][0][j] = prev_sentence + fin_split[i][0][j]
+        
+    ret = []
+    for sublist in fin_split:
+        for subsublist in sublist:
+            for item in subsublist:
+                ret.append(item)   
+    return ret
+
+
+
 def parse(f1):
     dct = {}
-    text1 = list(map(lambda s: clean_sentence(dct, s), nltk.sent_tokenize(f1)))
+    text1 = list(map(lambda s: clean_sentence(dct, s), preprocess_colons(f1)))
     reg = re.compile(r"http\S+|HTTP\S+")
     for st in text1:
         if reg.search(st):
