@@ -1,5 +1,3 @@
-console.log("injected")
-
 closeDiv = function(){
     this.parentNode.parentNode
     .removeChild(this.parentNode);
@@ -37,7 +35,6 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (request.requested == "createDiv"){
             createPopup(request.data)
-            console.log(request.data)
             sendResponse({confirmation: "Successfully created div"});
             return true;
         }
