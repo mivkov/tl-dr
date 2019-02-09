@@ -16,5 +16,5 @@ Highlight your target text, right-click and select "Simplify" in the context men
 ## Built With
 
 - [Flask](http://flask.pocoo.org/docs/1.0/)
-- [nltk](https://www.nltk.org/index.html)
+- [Natural Language Toolkit (NLTK)](https://www.nltk.org/index.html)
 - [scikit learn](https://scikit-learn.org/stable/documentation.html)
