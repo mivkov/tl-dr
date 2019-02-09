@@ -12,3 +12,9 @@ Visit chrome://extensions/, click the "Load Unpacked" button, and select the ```
 ### To use the Chrome extension:
 
 Highlight your target text, right-click and select "Simplify" in the context menu. The summary should appear in the bottom-right corner of your screen.
+
+## Built With
+
+- [Flask](http://flask.pocoo.org/docs/1.0/)
+- [nltk](https://www.nltk.org/index.html)
+- [scikit learn](https://scikit-learn.org/stable/documentation.html)
