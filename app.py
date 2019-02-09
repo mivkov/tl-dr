@@ -44,11 +44,12 @@ def apple():
 def api():
     info = request.get_json()
     val1 = info.get("text")
-    print("data: {}".format(val1))
+    # print("data: {}".format(val1))
 
     result = parse(val1)
     
-    print("sending off: {}".format(result))
+    print("SENDING OFF DATA")
+    print(result)
 
     return jsonify(data=result)
 
